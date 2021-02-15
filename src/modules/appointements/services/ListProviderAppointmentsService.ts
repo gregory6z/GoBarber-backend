@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 import IAppointmentRepository from '@modules/appointements/repositories/IAppointmentRepository';
 import Appointment from '../infra/typeorm/entities/Appointment';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import { classToClass } from 'class-transformer';
 //import User from '@modules/users/infra/typeorm/entities/User';
 //import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
@@ -44,7 +45,7 @@ class ListProviderAppointmentsService {
         },
       );
 
-      await this.cacheProvider.save(cacheKey, appointments);
+      await this.cacheProvider.save(cacheKey, classToClass(appointments));
     }
 
     return appointments;
